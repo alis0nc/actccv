@@ -32,7 +32,7 @@
 
 \setcounter{secnumdepth}{-1}
 \RequirePackage[hmargin=1.25cm,vmargin=1.25cm,twocolumn,columnsep=1.25cm]{geometry}
-\RequirePackage{bookman,etoolbox,hyperref,needspace,pifont,tabularx,xcolor}
+\RequirePackage{etoolbox,hyperref,needspace,pifont,tabularx,xcolor}
 
 % Capitalize words of at least a minimum length (default to 3 chars).
 % The text is capitalized before being expanded.
@@ -69,15 +69,20 @@
 \setkomafont{disposition}{\color[HTML]{801010}}
 \setkomafont{section}{\scshape\Large\mdseries}
 
-% In tccv \part must contain the subject of the curriculum vitae.
-% The command will start a new page and output in onecolumn the
-% subject (first and last name) with the hardcoded text
-% "Curriculum vitae" under it.
-\renewcommand\part[1]{%
+% Defining name and contact info
+\newcommand{\name}[1]{\gdef\@name{#1}}
+\newcommand{\address}[1]{\gdef\@address{#1}}
+\newcommand{\phone}[1]{\gdef\@phone{#1}}
+\newcommand{\email}[1]{\gdef\@email{#1}}
+\newcommand{\website}[1]{\gdef\@website{#1}}
+
+% make résumé header by maketitle
+
+\renewcommand\maketitle{%
     \twocolumn[%
     \begin{center}
 	\vskip-\lastskip%
-	{\usekomafont{part} #1} \medskip\\
+	{\usekomafont{part}\@name} \medskip \\ \@address \hfill \@phone \hfill \@email \hfill \@website
 	\bigskip
     \end{center}]}
 
