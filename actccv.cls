@@ -41,7 +41,7 @@
 \definecolor{link}{HTML}{506060} % Hyperlinks
 \hypersetup{colorlinks,breaklinks,urlcolor=link,linkcolor=link}
 \setkomafont{disposition}{\color[HTML]{801010}}
-\setkomafont{section}{\Large\mdseries}
+\setkomafont{section}{\Large\bfseries}
 
 % Defining name and contact info
 \newcommand{\name}[1]{\gdef\@name{#1}}
@@ -57,16 +57,10 @@
     \begin{center}
 	\vskip-\lastskip%
 	{\usekomafont{part}\@name} \medskip \\ 
-	\scriptsize \@address \hspace{8pt} $\bullet$ \hspace{8pt} \@phone \hspace{8pt} $\bullet$ \hspace{8pt} \@email \hspace{8pt} $\bullet$ \hspace{8pt} \@website
+	\scriptsize \@address \hspace{8pt} $\bullet$ \hspace{8pt} \@phone \hspace{8pt} $\bullet$ \hspace{8pt} \@email \hspace{8pt} $\bullet$ \hspace{8pt} \href{http://\@website}{\@website}
 	\bigskip
     \end{center}]}
 
-% Overrides the \section command
-\makeatletter
-\let\old@section\section
-\renewcommand\section[2][]{%
-    \old@section[#1]{\centering #2}}
-\makeatother
 
 % Allow conditionals based on the job name. This can usually be set
 % from a command-line argument: check fausto.en.tex for an example.
