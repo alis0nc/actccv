@@ -34,32 +34,6 @@
 \RequirePackage[hmargin=1.25cm,vmargin=1.25cm,twocolumn,columnsep=1.25cm]{geometry}
 \RequirePackage{etoolbox,hyperref,needspace,pifont,tabularx,xcolor}
 
-% Capitalize words of at least a minimum length (default to 3 chars).
-% The text is capitalized before being expanded.
-%
-% This macro uses Lua to do the job but fails gracefully (that is,
-% return the text as is) if \directlua is not available.
-%
-% |[
-% \ucwords[optional: miminum length]{text}
-% ]|
-\newcommand\ucwords[2][3]{%
-    % Fails gracefully if not in LuaLaTeX
-    \providecommand\directlua[1]{#2}%
-    \directlua{%
-	local minlen = tonumber("#1")
-	local src = "\luaescapestring{\unexpanded{#2}}"
-	local dst = {}
-	% Put a % inside \directlua is tricky as hell. Use char(37)
-	% instead: still no plans for supporting non-ASCII platforms.
-	for w in src:gmatch(string.char(37) .. "S+") do
-	    if w:len() >= minlen then
-		table.insert(dst, w:sub(1,1):upper() .. w:sub(2))
-	    else
-		table.insert(dst, w)
-	    end
-	end
-	tex.print(dst)}}
 
 \pagestyle{empty}
 \setlength\parindent{0pt}
@@ -67,7 +41,7 @@
 \definecolor{link}{HTML}{506060} % Hyperlinks
 \hypersetup{colorlinks,breaklinks,urlcolor=link,linkcolor=link}
 \setkomafont{disposition}{\color[HTML]{801010}}
-\setkomafont{section}{\scshape\Large\mdseries}
+\setkomafont{section}{\Large\mdseries}
 
 % Defining name and contact info
 \newcommand{\name}[1]{\gdef\@name{#1}}
@@ -82,19 +56,16 @@
     \twocolumn[%
     \begin{center}
 	\vskip-\lastskip%
-	{\usekomafont{part}\@name} \medskip \\ \@address \hfill \@phone \hfill \@email \hfill \@website
+	{\usekomafont{part}\@name} \medskip \\ 
+	\scriptsize \@address \hspace{8pt} $\bullet$ \hspace{8pt} \@phone \hspace{8pt} $\bullet$ \hspace{8pt} \@email \hspace{8pt} $\bullet$ \hspace{8pt} \@website
 	\bigskip
     \end{center}]}
 
-% Overrides the \section command to capitalize every
-% word for cosmetic purposes and draws a rule under it.
+% Overrides the \section command
 \makeatletter
 \let\old@section\section
 \renewcommand\section[2][]{%
-    \old@section[#1]{\ucwords{#2}}%
-    \newdimen\raising%
-    \raising=\dimexpr-0.7\baselineskip\relax%
-    \vskip\raising\hrule height 0.4pt\vskip-\raising}
+    \old@section[#1]{\centering #2}}
 \makeatother
 
 % Allow conditionals based on the job name. This can usually be set
