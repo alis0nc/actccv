@@ -116,11 +116,11 @@
     \newdimen\boxwidth%
     \boxwidth=\dimexpr\linewidth-2\fboxsep\relax%
     \colorbox[HTML]{F5DD9D}{%
-    \begin{tabularx}{\boxwidth}{c|X}
-    \SYMBOL{45} & {#2}\smallskip\\
-    \SYMBOL{37} & {#3}\smallskip\\
-    \SYMBOL{41} & \href{mailto:#4}{#4}
-    \ifstrempty{#1}{}{\smallskip\\ \SYMBOL{218} & \href{http://#1}{#1}}
+    \begin{tabularx}{\boxwidth}{X}
+    {#2}\smallskip\\
+    {#3}\smallskip\\
+    \href{mailto:#4}{#4}
+    \ifstrempty{#1}{}{\smallskip\\ \href{http://#1}{#1}}
     \end{tabularx}}}
 
 % Every \item can be followed by one or more paragraphs
